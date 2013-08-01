@@ -4,6 +4,9 @@
  */
 package kodiak;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Wayne E Starr
@@ -14,6 +17,12 @@ public class Kodiak {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        JFrame jfmMain = new JFrame();
+        JPanel jplMain = new Main();
+        
+        jfmMain.add(jplMain);
+        jfmMain.setTitle("Kodiak");
+        jfmMain.pack();
+        jfmMain.setVisible(true);
     }
 }
