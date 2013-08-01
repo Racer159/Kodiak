@@ -32,7 +32,7 @@ public class Main extends javax.swing.JPanel {
     }
    
     public void initTimeDate() {
-        Calendar now = Calendar.getInstance();
+        final Calendar now = Calendar.getInstance();
         
         // Update clock
         new Timer(interval, new ActionListener() {
