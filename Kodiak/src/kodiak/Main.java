@@ -4,6 +4,9 @@
  */
 package kodiak;
 
+import java.awt.Dimension;
+import java.awt.Font;
+
 /**
  *
  * @author Wayne E Starr
@@ -17,6 +20,14 @@ public class Main extends javax.swing.JPanel {
         initComponents();
     }
 
+    public void setTimeText(String text) {
+        this.lblTime.setText(text);
+    }
+    
+    public void setDateText(String text) {
+        this.lblDate.setText(text);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,12 +44,22 @@ public class Main extends javax.swing.JPanel {
         btnTray = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(640, 360));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                formPropertyChange(evt);
+            }
+        });
 
-        lblTime.setFont(new java.awt.Font("Tahoma", 0, 108)); // NOI18N
+        lblTime.setFont(new java.awt.Font("Tahoma", 0, 120)); // NOI18N
         lblTime.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblTime.setText("12:02 PM");
 
-        lblDate.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        lblDate.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         lblDate.setText("Wednesday, July 31, 2013");
 
         btnSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kodiak/Options.png"))); // NOI18N
@@ -63,7 +84,7 @@ public class Main extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,7 +104,7 @@ public class Main extends javax.swing.JPanel {
                 .addComponent(lblTime)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSettings, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -96,6 +117,30 @@ public class Main extends javax.swing.JPanel {
     private void btnFullscreenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFullscreenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFullscreenActionPerformed
+
+    private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
+        
+    }//GEN-LAST:event_formPropertyChange
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        Dimension size = this.getSize();
+        int width = size.width;
+        int height = size.height;
+        int widthfont = (int) width / 5;
+        int heightfont = (int) height / 3;
+        if (widthfont > heightfont) {
+            Font fntTime = new Font(Font.SANS_SERIF, Font.PLAIN, heightfont);
+            Font fntDate = new Font(Font.SANS_SERIF, Font.PLAIN, heightfont/3);
+            this.lblTime.setFont(fntTime);
+            this.lblDate.setFont(fntDate);
+        } else {
+            Font fntTime = new Font(Font.SANS_SERIF, Font.PLAIN, widthfont);
+            Font fntDate = new Font(Font.SANS_SERIF, Font.PLAIN, widthfont/3);
+            this.lblTime.setFont(fntTime);
+            this.lblDate.setFont(fntDate);
+        }
+        repaint();
+    }//GEN-LAST:event_formComponentResized
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFullscreen;
