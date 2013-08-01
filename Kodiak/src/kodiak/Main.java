@@ -6,26 +6,44 @@ package kodiak;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import javax.swing.Timer;
 
 /**
  *
  * @author Wayne E Starr
  */
 public class Main extends javax.swing.JPanel {
+    
+    final DateFormat timeFormat = new SimpleDateFormat("h:m a");
+    final DateFormat dateFormat = new SimpleDateFormat("E, M d, Y");
+    final static int interval = 60000; // every minute
 
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
+        initTimeDate();
     }
-
-    public void setTimeText(String text) {
-        this.lblTime.setText(text);
-    }
-    
-    public void setDateText(String text) {
-        this.lblDate.setText(text);
+   
+    public void initTimeDate() {
+        Calendar now = Calendar.getInstance();
+        
+        // Update clock
+        new Timer(interval, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lblTime.setText(timeFormat.format(now.getTime()));
+            }
+        }).start();
+        
+        // Update date
+        lblDate.setText(dateFormat.format(now.getTime()));
     }
     
     /**
